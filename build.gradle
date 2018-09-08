@@ -1,0 +1,40 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        classpath "gradle.plugin.org.gradle.java:experimental-jigsaw:0.1.1"
+    }
+}
+
+plugins {
+    id "java-library"
+    id "antlr"
+}
+
+sourceCompatibility = "10"
+
+repositories {
+    mavenCentral()
+}
+
+group "ud.antlr.json"
+version "0.1.0-SNAPSHOT"
+
+dependencies {
+    antlr "org.antlr:antlr4:$antlrVersion"
+    implementation "org.apache.commons:commons-lang3:$commonsLangVersion"
+    testImplementation "org.glassfish:javax.json:$jsonVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:$jUnitJupiterVersion"
+}
+
+generateGrammarSource {
+    arguments += ["-visitor"]
+}
+
+test {
+    useJUnitPlatform()
+}
